@@ -8,131 +8,193 @@
     />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <title>Talkio - Anonymous Voice Chat</title>
+    <title>Talkio - Sesli Sohbet</title>
+    <meta name="description" content="Talkio ile yabancılarla anonim sesli sohbet et. Türkiye'nin rastgele sesli sohbet platformu. Ücretsiz, kayıtsız, anonim."/>
+    <meta name="keywords" content="sesli sohbet, anonim sohbet, yabancılarla konuş, rastgele sohbet, türkçe sohbet"/>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+    <link rel="manifest" href="/manifest.json"/>
+    <meta name="theme-color" content="#667eea"/>
     <link rel="stylesheet" href="style.css" />
+    <!-- Google AdSense - ca-pub kodunu kendi publisher ID'nle değiştir -->
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
   </head>
   <body>
     <div class="container">
       <header>
         <div class="online-counter">
           <span id="onlineCount">0</span>
-          <span class="online-text" data-i18n="online">Online</span>
+          <span class="online-text">Çevrimiçi</span>
+        </div>
+        <div class="waiting-counter" id="waitingCounter" style="display:none">
+          <span id="waitingCount">0</span>
+          <span class="online-text">Bekliyor</span>
         </div>
         <h1>🎙️ Talkio</h1>
-        <p class="subtitle" data-i18n="subtitle">Random Anonymous Voice Chat</p>
+        <p class="subtitle">Rastgele Anonim Sesli Sohbet</p>
+        <div class="header-actions">
+          <div class="lang-row">
+            <button class="lang-btn active" data-lang="tr">🇹🇷</button>
+            <button class="lang-btn" data-lang="en">🇬🇧</button>
+            <button class="lang-btn" data-lang="ar">🇸🇦</button>
+          </div>
+          <button id="themeToggleBtn" class="header-btn" title="Tema Değiştir">☀️</button>
+          <button id="shareBtn" class="header-btn" title="Siteyi Paylaş">🔗</button>
+        </div>
       </header>
 
       <!-- Anonim konuşma başlat -->
       <div id="loginSection" class="section">
-        <h2 data-i18n="title">🎭 Anonymous Voice Chat</h2>
-        <p class="anonymous-info" data-i18n="description">
-          Talk with random strangers anonymously
+        <h2>🎭 Anonim Sesli Sohbet</h2>
+        <p class="anonymous-info">
+          Yabancılarla anonim olarak konuş
         </p>
         <div class="country-selector">
-          <label
-            for="countrySelect"
-            data-i18n="selectCountry"
-            data-i18n="selectCountry"
-            >🌍 Select your country:</label
-          >
+          <label for="countrySelect">🌍 Ülkeni seç:</label>
           <select id="countrySelect">
-            <option value="" data-i18n="selectCountryOption">
-              Select Country...
-            </option>
-            <option value="🇹🇷">🇹🇷 Turkey</option>
-            <option value="🇺🇸">🇺🇸 USA</option>
-            <option value="🇬🇧">🇬🇧 United Kingdom</option>
-            <option value="🇩🇪">🇩🇪 Germany</option>
-            <option value="🇫🇷">🇫🇷 France</option>
-            <option value="🇮🇹">🇮🇹 Italy</option>
-            <option value="🇪🇸">🇪🇸 Spain</option>
-            <option value="🇳🇱">🇳🇱 Netherlands</option>
-            <option value="🇧🇪">🇧🇪 Belgium</option>
-            <option value="🇨🇭">🇨🇭 Switzerland</option>
-            <option value="🇦🇹">🇦🇹 Austria</option>
-            <option value="🇸🇪">🇸🇪 Sweden</option>
-            <option value="🇳🇴">🇳🇴 Norway</option>
-            <option value="🇩🇰">🇩🇰 Denmark</option>
-            <option value="🇫🇮">🇫🇮 Finland</option>
-            <option value="🇵🇱">🇵🇱 Poland</option>
-            <option value="🇬🇷">🇬🇷 Greece</option>
-            <option value="🇷🇺">🇷🇺 Russia</option>
-            <option value="🇯🇵">🇯🇵 Japan</option>
-            <option value="🇨🇳">🇨🇳 China</option>
-            <option value="🇰🇷">🇰🇷 South Korea</option>
-            <option value="🇮🇳">🇮🇳 India</option>
-            <option value="🇧🇷">🇧🇷 Brazil</option>
-            <option value="🇲🇽">🇲🇽 Mexico</option>
-            <option value="🇦🇷">🇦🇷 Argentina</option>
-            <option value="🇨🇦">🇨🇦 Canada</option>
-            <option value="🇦🇺">🇦🇺 Australia</option>
-            <option value="🇿🇦">🇿🇦 South Africa</option>
-            <option value="🇪🇬">🇪🇬 Egypt</option>
-            <option value="🇸🇦">🇸🇦 Saudi Arabia</option>
-            <option value="🇦🇪">🇦🇪 UAE</option>
+            <option value="">Ülke Seç...</option>
+            <option value="🇹🇷" selected>🇹🇷 Türkiye</option>
+            <option value="🇺🇸">🇺🇸 ABD</option>
+            <option value="🇬🇧">🇬🇧 İngiltere</option>
+            <option value="🇩🇪">🇩🇪 Almanya</option>
+            <option value="🇫🇷">🇫🇷 Fransa</option>
+            <option value="🇮🇹">🇮🇹 İtalya</option>
+            <option value="🇪🇸">🇪🇸 İspanya</option>
+            <option value="🇳🇱">🇳🇱 Hollanda</option>
+            <option value="🇧🇪">🇧🇪 Belçika</option>
+            <option value="🇨🇭">🇨🇭 İsviçre</option>
+            <option value="🇦🇹">🇦🇹 Avusturya</option>
+            <option value="🇸🇪">🇸🇪 İsveç</option>
+            <option value="🇳🇴">🇳🇴 Norveç</option>
+            <option value="🇩🇰">🇩🇰 Danimarka</option>
+            <option value="🇫🇮">🇫🇮 Finlandiya</option>
+            <option value="🇵🇱">🇵🇱 Polonya</option>
+            <option value="🇬🇷">🇬🇷 Yunanistan</option>
+            <option value="🇷🇺">🇷🇺 Rusya</option>
+            <option value="🇯🇵">🇯🇵 Japonya</option>
+            <option value="🇨🇳">🇨🇳 Çin</option>
+            <option value="🇰🇷">🇰🇷 G. Kore</option>
+            <option value="🇮🇳">🇮🇳 Hindistan</option>
+            <option value="🇧🇷">🇧🇷 Brezilya</option>
+            <option value="🇲🇽">🇲🇽 Meksika</option>
+            <option value="🇦🇷">🇦🇷 Arjantin</option>
+            <option value="🇨🇦">🇨🇦 Kanada</option>
+            <option value="🇦🇺">🇦🇺 Avustralya</option>
+            <option value="🇿🇦">🇿🇦 G. Afrika</option>
+            <option value="🇪🇬">🇪🇬 Mısır</option>
+            <option value="🇸🇦">🇸🇦 Suudi Arabistan</option>
+            <option value="🇦🇪">🇦🇪 BAE</option>
           </select>
         </div>
         <div class="interest-selector">
-          <label for="interestSelect">🎯 Select your interest:</label>
+          <label for="interestSelect">🎯 İlgi alanını seç:</label>
           <select id="interestSelect">
-            <option value="">Any Topic</option>
-            <option value="casual">💬 Casual Chat</option>
-            <option value="music">🎵 Music</option>
-            <option value="gaming">🎮 Gaming</option>
-            <option value="sports">⚽ Sports</option>
-            <option value="movies">🎥 Movies & TV</option>
-            <option value="tech">💻 Technology</option>
-            <option value="food">🍔 Food & Cooking</option>
-            <option value="travel">✈️ Travel</option>
-            <option value="books">📚 Books</option>
-            <option value="art">🎨 Art & Design</option>
+            <option value="">Her Şey</option>
+            <option value="casual">💬 Sohbet</option>
+            <option value="music">🎵 Müzik</option>
+            <option value="gaming">🎮 Oyun</option>
+            <option value="sports">⚽ Spor</option>
+            <option value="movies">🎥 Dizi & Film</option>
+            <option value="tech">💻 Teknoloji</option>
+            <option value="food">🍔 Yemek</option>
+            <option value="travel">✈️ Seyahat</option>
+            <option value="books">📚 Kitap</option>
+            <option value="art">🎨 Sanat</option>
             <option value="fitness">💪 Fitness</option>
-            <option value="business">💼 Business</option>
+            <option value="business">💼 İş Dünyası</option>
           </select>
+        </div>
+        <div class="interest-selector">
+          <label for="genderSelect">👤 Ben:</label>
+          <select id="genderSelect">
+            <option value="">Belirtmek istemiyorum</option>
+            <option value="male">♂️ Erkek</option>
+            <option value="female">♀️ Kadın</option>
+            <option value="other">🌈 Diğer</option>
+          </select>
+        </div>
+        <div class="interest-selector">
+          <label for="genderPrefSelect">🔍 Arıyorum:</label>
+          <select id="genderPrefSelect">
+            <option value="">Herkesle</option>
+            <option value="male">♂️ Erkek</option>
+            <option value="female">♀️ Kadın</option>
+          </select>
+        </div>
+        <div class="color-picker-row">
+          <label>🎨 Rengin:</label>
+          <div id="colorSwatches" class="color-swatches">
+            <button class="swatch" data-color="#a78bfa" style="background:#a78bfa" title="Mor"></button>
+            <button class="swatch" data-color="#3b82f6" style="background:#3b82f6" title="Mavi"></button>
+            <button class="swatch" data-color="#22c55e" style="background:#22c55e" title="Yeşil"></button>
+            <button class="swatch" data-color="#ef4444" style="background:#ef4444" title="Kırmızı"></button>
+            <button class="swatch" data-color="#f97316" style="background:#f97316" title="Turuncu"></button>
+            <button class="swatch" data-color="#ec4899" style="background:#ec4899" title="Pembe"></button>
+            <button class="swatch" data-color="#14b8a6" style="background:#14b8a6" title="Teal"></button>
+            <button class="swatch" data-color="#eab308" style="background:#eab308" title="Sarı"></button>
+          </div>
         </div>
         <div class="mic-test-container">
           <button id="testMicBtn" class="btn btn-secondary">
-            🎤 Test Microphone
+            🎙️ Mikrofonu Test Et
           </button>
           <div class="mic-test-result hidden" id="micTestResult">
             <div class="mic-level-bar">
               <div class="mic-level-fill" id="micLevelFill"></div>
             </div>
-            <span id="micTestStatus">Speak to test...</span>
+            <span id="micTestStatus">Konuşarak test et...</span>
           </div>
         </div>
-        <button id="joinBtn" class="btn btn-primary">
-          🎤 <span data-i18n="startTalking">Start Talking</span>
-        </button>
+          <button id="joinBtn" class="btn btn-primary">
+            🎙️ <span>Konuşmaya Başla</span>
+          </button>
+
+          <!-- AdSense Alanı - Gerçek AdSense kodunu buraya ekle -->
+          <div class="ad-container" id="adContainer">
+            <!-- AdSense aktif olduğunda şu kodu yapıştır:
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                 data-ad-slot="XXXXXXXXXX"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            -->
+            <span class="ad-label">Reklam Alanı</span>
+          </div>
       </div>
 
       <!-- Ana sohbet alanı -->
       <div id="chatSection" class="section hidden">
         <div class="user-info">
           <span
-            >🎭 <strong data-i18n="anonymousUser">Anonymous User</strong></span
+            >🎭 <strong>Anonim Kullanıcı</strong></span
           >
           <span class="status" id="connectionStatus"
-            >🔴 <span data-i18n="waiting">Waiting...</span></span
+            >🔴 <span>Bekleniyor...</span></span
           >
+          <span id="qualityBadge" class="quality-badge"></span>
         </div>
 
+        <div id="callTimer" class="call-timer hidden">
+          <span>⏱️</span>
+          <span id="timerDisplay">00:00</span>
+        </div>
         <div class="matching-status">
           <div id="matchingMessage" class="matching-message">
             <div class="spinner"></div>
-            <p data-i18n="findingSomeone">Finding someone...</p>
+            <p>Biri aranıyor...</p>
           </div>
         </div>
 
         <div class="call-controls">
           <button id="endCallBtn" class="btn btn-danger hidden">
-            ❌ <span data-i18n="endCall">End Call & Find Next</span>
+            ❌ <span>Bitir & Yeni Bul</span>
           </button>
           <button id="nextPersonBtn" class="btn btn-warning hidden">
-            ⏭️ <span data-i18n="nextPerson">Next Person</span>
+            ⏭️ <span>Sonraki Kişi</span>
           </button>
           <button id="reportBtn" class="btn btn-report hidden">
-            ⚠️ <span data-i18n="btn-report">Report User</span>
+            ⚠️ <span>Kullanıcıyı Şikayet Et</span>
           </button>
         </div>
 
@@ -141,27 +203,43 @@
         <!-- Text Chat -->
         <div class="text-chat hidden" id="textChat">
           <div class="chat-header">
-            <span>💬 Text Chat</span>
+            <span>💬 Yazışma</span>
           </div>
           <div class="chat-messages" id="chatMessages"></div>
+          <div id="typingIndicator" class="typing-indicator hidden">
+            <span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>
+            <span class="typing-text">yazıyor...</span>
+          </div>
           <div class="chat-input-container">
             <input
               type="text"
               id="chatInput"
-              placeholder="Type a message..."
+              placeholder="Mesaj yaz..."
               maxlength="500"
             />
             <button id="sendBtn" class="btn-send">🚀</button>
           </div>
         </div>
 
+        <!-- Emoji Tepkileri -->
+        <div class="emoji-bar hidden" id="emojiBar">
+          <button class="emoji-btn">👍</button>
+          <button class="emoji-btn">😂</button>
+          <button class="emoji-btn">❤️</button>
+          <button class="emoji-btn">😮</button>
+          <button class="emoji-btn">👏</button>
+          <button class="emoji-btn">🔥</button>
+          <button class="emoji-btn">😈</button>
+          <button class="emoji-btn">💯</button>
+        </div>
+
         <!-- Ses kontrolleri -->
         <div class="audio-controls hidden" id="audioControls">
           <button id="muteBtn" class="btn btn-secondary">
-            🎤 <span data-i18n="mute">Mute</span>
+            🎙️ <span>Sesi Kes</span>
           </button>
           <div class="volume-indicator">
-            <span data-i18n="volume">Volume:</span>
+            <span>Ses Seviyesi:</span>
             <div class="volume-bar">
               <div id="volumeLevel"></div>
             </div>
@@ -174,52 +252,45 @@
     <div id="reportModal" class="modal">
       <div class="modal-content">
         <span class="modal-close">&times;</span>
-        <h2 data-i18n="report-title">Report User</h2>
-        <p data-i18n="report-description">
-          Please select a reason for reporting this user:
+        <h2>⚠️ Kullanıcıyı Şikayet Et</h2>
+        <p>
+          Lütfen Şikayet nedeninizi seçin:
         </p>
         <div class="report-reasons">
           <label class="report-option">
             <input type="radio" name="reportReason" value="spam" />
-            <span data-i18n="report-spam">Spam or advertising</span>
+            <span>Spam veya reklam</span>
           </label>
           <label class="report-option">
             <input type="radio" name="reportReason" value="abuse" />
-            <span data-i18n="report-abuse">Abusive or harassment</span>
+            <span>Hakaret veya taciz</span>
           </label>
           <label class="report-option">
             <input type="radio" name="reportReason" value="inappropriate" />
-            <span data-i18n="report-inappropriate">Inappropriate content</span>
+            <span>Uygunsuz içerik</span>
           </label>
           <label class="report-option">
             <input type="radio" name="reportReason" value="bot" />
-            <span data-i18n="report-bot">Bot or fake account</span>
+            <span>Bot veya sahte hesap</span>
           </label>
           <label class="report-option">
             <input type="radio" name="reportReason" value="other" />
-            <span data-i18n="report-other">Other</span>
+            <span>Diğer</span>
           </label>
         </div>
         <textarea
           id="reportDetails"
-          placeholder="Additional details (optional)"
+          placeholder="Ek açıklama (isteğe bağlı)"
           rows="3"
-          data-i18n-placeholder="report-details-placeholder"
         ></textarea>
         <div class="modal-actions">
-          <button
-            id="submitReport"
-            class="btn btn-danger"
-            data-i18n="btn-submit-report"
-          >
-            Submit Report
+          <button id="submitReport" class="btn btn-danger">
+            Şikayeti Gönder
           </button>
-          <button
-            id="cancelReport"
-            class="btn btn-secondary"
-            data-i18n="btn-cancel"
-          >
-            Cancel
+          <button id="cancelReport" class="btn btn-secondary">
+            İptal
+          </button>
+        </div>
           </button>
         </div>
       </div>
@@ -228,7 +299,38 @@
     <!-- Audio element (uzaktaki kullanıcının sesi için) -->
     <audio id="remoteAudio" autoplay playsinline></audio>
 
+    <!-- Klavye kısayolları ipucu -->
+    <div id="keyboardHint" class="keyboard-hint hidden">
+      <kbd>Space</kbd> Sustur &nbsp; <kbd>N</kbd> Sonraki &nbsp; <kbd>ESC</kbd> Bitir
+    </div>
+
+    <footer class="site-footer">
+      <a href="/terms.html" target="_blank">Kullanım Koşulları &amp; Gizlilik Politikası</a>
+      <span>·</span>
+      <a href="/stats.html" target="_blank">📊 İstatistikler</a>
+      <span>·</span>
+      <span>Yalnızca 18+</span>
+    </footer>
+
+    <!-- 18+ Age Verification Modal -->
+    <div id="ageModal" class="modal">
+      <div class="modal-content">
+        <div style="font-size: 3em; text-align: center; margin-bottom: 15px;">🔞</div>
+        <h2 style="text-align: center; color: #a78bfa; margin-bottom: 15px;">Yaş Doğrulama</h2>
+        <p style="text-align: center; margin-bottom: 10px;">Bu platform yalnızca <strong>18 yaş ve üzeri</strong> kullanıcılar içindir.</p>
+        <p style="text-align: center; color: #9ca3af; font-size: 0.9em; margin-bottom: 25px;">Giriş yaparak 18 yaşında veya üzerinde olduğunuzu ve Kullanım Koşullarımızı kabul ettiğinizi onaylıyorsunuz.</p>
+        <div class="modal-actions">
+          <button id="ageConfirmBtn" class="btn btn-primary">✅ 18 yaşındayım veya üzerindeyim</button>
+          <button id="ageDenyBtn" class="btn btn-danger" style="margin-top: 10px;">❌ 18 yaşından küçüğüm — Çık</button>
+        </div>
+      </div>
+    </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="app.js"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js').catch(() => {});
+      }
+    </script>
   </body>
 </html>
