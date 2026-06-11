@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Talkio - Anonymous Voice Chat</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="online-counter">
+          <span id="onlineCount">0</span>
+          <span class="online-text" data-i18n="online">Online</span>
+        </div>
+        <h1>🎙️ Talkio</h1>
+        <p class="subtitle" data-i18n="subtitle">Random Anonymous Voice Chat</p>
+      </header>
+
+      <!-- Anonim konuşma başlat -->
+      <div id="loginSection" class="section">
+        <h2 data-i18n="title">🎭 Anonymous Voice Chat</h2>
+        <p class="anonymous-info" data-i18n="description">
+          Talk with random strangers anonymously
+        </p>
+        <div class="country-selector">
+          <label
+            for="countrySelect"
+            data-i18n="selectCountry"
+            data-i18n="selectCountry"
+            >🌍 Select your country:</label
+          >
+          <select id="countrySelect">
+            <option value="" data-i18n="selectCountryOption">
+              Select Country...
+            </option>
+            <option value="🇹🇷">🇹🇷 Turkey</option>
+            <option value="🇺🇸">🇺🇸 USA</option>
+            <option value="🇬🇧">🇬🇧 United Kingdom</option>
+            <option value="🇩🇪">🇩🇪 Germany</option>
+            <option value="🇫🇷">🇫🇷 France</option>
+            <option value="🇮🇹">🇮🇹 Italy</option>
+            <option value="🇪🇸">🇪🇸 Spain</option>
+            <option value="🇳🇱">🇳🇱 Netherlands</option>
+            <option value="🇧🇪">🇧🇪 Belgium</option>
+            <option value="🇨🇭">🇨🇭 Switzerland</option>
+            <option value="🇦🇹">🇦🇹 Austria</option>
+            <option value="🇸🇪">🇸🇪 Sweden</option>
+            <option value="🇳🇴">🇳🇴 Norway</option>
+            <option value="🇩🇰">🇩🇰 Denmark</option>
+            <option value="🇫🇮">🇫🇮 Finland</option>
+            <option value="🇵🇱">🇵🇱 Poland</option>
+            <option value="🇬🇷">🇬🇷 Greece</option>
+            <option value="🇷🇺">🇷🇺 Russia</option>
+            <option value="🇯🇵">🇯🇵 Japan</option>
+            <option value="🇨🇳">🇨🇳 China</option>
+            <option value="🇰🇷">🇰🇷 South Korea</option>
+            <option value="🇮🇳">🇮🇳 India</option>
+            <option value="🇧🇷">🇧🇷 Brazil</option>
+            <option value="🇲🇽">🇲🇽 Mexico</option>
+            <option value="🇦🇷">🇦🇷 Argentina</option>
+            <option value="🇨🇦">🇨🇦 Canada</option>
+            <option value="🇦🇺">🇦🇺 Australia</option>
+            <option value="🇿🇦">🇿🇦 South Africa</option>
+            <option value="🇪🇬">🇪🇬 Egypt</option>
+            <option value="🇸🇦">🇸🇦 Saudi Arabia</option>
+            <option value="🇦🇪">🇦🇪 UAE</option>
+          </select>
+        </div>
+        <div class="interest-selector">
+          <label for="interestSelect">🎯 Select your interest:</label>
+          <select id="interestSelect">
+            <option value="">Any Topic</option>
+            <option value="casual">💬 Casual Chat</option>
+            <option value="music">🎵 Music</option>
+            <option value="gaming">🎮 Gaming</option>
+            <option value="sports">⚽ Sports</option>
+            <option value="movies">🎥 Movies & TV</option>
+            <option value="tech">💻 Technology</option>
+            <option value="food">🍔 Food & Cooking</option>
+            <option value="travel">✈️ Travel</option>
+            <option value="books">📚 Books</option>
+            <option value="art">🎨 Art & Design</option>
+            <option value="fitness">💪 Fitness</option>
+            <option value="business">💼 Business</option>
+          </select>
+        </div>
+        <div class="mic-test-container">
+          <button id="testMicBtn" class="btn btn-secondary">
+            🎤 Test Microphone
+          </button>
+          <div class="mic-test-result hidden" id="micTestResult">
+            <div class="mic-level-bar">
+              <div class="mic-level-fill" id="micLevelFill"></div>
+            </div>
+            <span id="micTestStatus">Speak to test...</span>
+          </div>
+        </div>
+        <button id="joinBtn" class="btn btn-primary">
+          🎤 <span data-i18n="startTalking">Start Talking</span>
+        </button>
+      </div>
+
+      <!-- Ana sohbet alanı -->
+      <div id="chatSection" class="section hidden">
+        <div class="user-info">
+          <span
+            >🎭 <strong data-i18n="anonymousUser">Anonymous User</strong></span
+          >
+          <span class="status" id="connectionStatus"
+            >🔴 <span data-i18n="waiting">Waiting...</span></span
+          >
+        </div>
+
+        <div class="matching-status">
+          <div id="matchingMessage" class="matching-message">
+            <div class="spinner"></div>
+            <p data-i18n="findingSomeone">Finding someone...</p>
+          </div>
+        </div>
+
+        <div class="call-controls">
+          <button id="endCallBtn" class="btn btn-danger hidden">
+            ❌ <span data-i18n="endCall">End Call & Find Next</span>
+          </button>
+          <button id="nextPersonBtn" class="btn btn-warning hidden">
+            ⏭️ <span data-i18n="nextPerson">Next Person</span>
+          </button>
+          <button id="reportBtn" class="btn btn-report hidden">
+            ⚠️ <span data-i18n="btn-report">Report User</span>
+          </button>
+        </div>
+
+        <div id="callStatus" class="call-status"></div>
+
+        <!-- Text Chat -->
+        <div class="text-chat hidden" id="textChat">
+          <div class="chat-header">
+            <span>💬 Text Chat</span>
+          </div>
+          <div class="chat-messages" id="chatMessages"></div>
+          <div class="chat-input-container">
+            <input
+              type="text"
+              id="chatInput"
+              placeholder="Type a message..."
+              maxlength="500"
+            />
+            <button id="sendBtn" class="btn-send">🚀</button>
+          </div>
+        </div>
+
+        <!-- Ses kontrolleri -->
+        <div class="audio-controls hidden" id="audioControls">
+          <button id="muteBtn" class="btn btn-secondary">
+            🎤 <span data-i18n="mute">Mute</span>
+          </button>
+          <div class="volume-indicator">
+            <span data-i18n="volume">Volume:</span>
+            <div class="volume-bar">
+              <div id="volumeLevel"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Report Modal -->
+    <div id="reportModal" class="modal">
+      <div class="modal-content">
+        <span class="modal-close">&times;</span>
+        <h2 data-i18n="report-title">Report User</h2>
+        <p data-i18n="report-description">
+          Please select a reason for reporting this user:
+        </p>
+        <div class="report-reasons">
+          <label class="report-option">
+            <input type="radio" name="reportReason" value="spam" />
+            <span data-i18n="report-spam">Spam or advertising</span>
+          </label>
+          <label class="report-option">
+            <input type="radio" name="reportReason" value="abuse" />
+            <span data-i18n="report-abuse">Abusive or harassment</span>
+          </label>
+          <label class="report-option">
+            <input type="radio" name="reportReason" value="inappropriate" />
+            <span data-i18n="report-inappropriate">Inappropriate content</span>
+          </label>
+          <label class="report-option">
+            <input type="radio" name="reportReason" value="bot" />
+            <span data-i18n="report-bot">Bot or fake account</span>
+          </label>
+          <label class="report-option">
+            <input type="radio" name="reportReason" value="other" />
+            <span data-i18n="report-other">Other</span>
+          </label>
+        </div>
+        <textarea
+          id="reportDetails"
+          placeholder="Additional details (optional)"
+          rows="3"
+          data-i18n-placeholder="report-details-placeholder"
+        ></textarea>
+        <div class="modal-actions">
+          <button
+            id="submitReport"
+            class="btn btn-danger"
+            data-i18n="btn-submit-report"
+          >
+            Submit Report
+          </button>
+          <button
+            id="cancelReport"
+            class="btn btn-secondary"
+            data-i18n="btn-cancel"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Audio element (uzaktaki kullanıcının sesi için) -->
+    <audio id="remoteAudio" autoplay playsinline></audio>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
