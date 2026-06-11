@@ -6,6 +6,27 @@ const path = require('path');
 
 const PORT = process.env.PORT || 8080;
 
+// TURN sunucu konfigürasyonu (env var'dan)
+const ICE_SERVERS = [
+  { urls: 'stun:stun.l.google.com:19302' },
+  { urls: 'stun:stun1.l.google.com:19302' },
+];
+if (process.env.TURN_USERNAME && process.env.TURN_CREDENTIAL) {
+  ICE_SERVERS.push(
+    { urls: `turn:${process.env.TURN_HOST || 'openrelay.metered.ca'}:80`, username: process.env.TURN_USERNAME, credential: process.env.TURN_CREDENTIAL },
+    { urls: `turn:${process.env.TURN_HOST || 'openrelay.metered.ca'}:443`, username: process.env.TURN_USERNAME, credential: process.env.TURN_CREDENTIAL },
+    { urls: `turns:${process.env.TURN_HOST || 'openrelay.metered.ca'}:443`, username: process.env.TURN_USERNAME, credential: process.env.TURN_CREDENTIAL }
+  );
+} else {
+  ICE_SERVERS.push(
+    { urls: 'turn:openrelay.metered.ca:80', username: 'openrelayproject', credential: 'openrelayproject' },
+    { urls: 'turn:openrelay.metered.ca:443', username: 'openrelayproject', credential: 'openrelayproject' }
+  );
+}
+
+// İstatistikler
+let stats = { totalMatches: 0, totalMessages: 0, startTime: Date.now() };
+
 // ══════════════════════════════════════════
 // MESAJ FİLTRESİ
 // ══════════════════════════════════════════
